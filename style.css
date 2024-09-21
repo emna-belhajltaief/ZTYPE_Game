@@ -1,0 +1,114 @@
+body {
+    text-align: center;
+    background-color: #282c34;
+    color: white;
+
+}
+h1 {
+    font-size: 48px;
+    font-family: 'Montserrat', sans-serif;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+canvas {
+    border: 10px solid white;
+    background-color: white;
+    display: block;
+    margin: 0 auto;
+}
+
+#scoreBoard {
+    margin-top: 10px;
+}
+
+.key-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.key {
+    background-color: #444;
+    color: white;
+    border: none;
+    padding: 10px;
+    margin: 2px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 4px;
+}
+
+.key:active {
+    background-color: #888;
+}
+
+
+#gameOver {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: rgba(0, 0, 0, 0.329); 
+    /* color: white; */
+    border-radius: 10px;
+    display: none;
+    width: 600px;
+    height: 600px;
+    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 48px;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    animation: fade-in 0.5s;
+    animation-fill-mode: forwards;
+}
+
+#gameOver.visible {
+    display: block;
+}
+.text{
+    color:red;
+    font-size: 48px;
+    font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  font-family: 'Montserrat', sans-serif;
+  animation: pulse 1s infinite;
+  animation-fill-mode: forwards;
+}
+#highestScore{
+    color:gold;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+button {
+   
+    background-color: #4CAF50; 
+    color: #fff; 
+    padding: 10px 20px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    transition: background-color 0.2s;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+button:hover {
+    background-color: #3e8e41; 
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+}
+
+/* .bullet {
+    width: 5px;
+    height: 8px;
+    background-color: red;
+    position: absolute;
+} */
