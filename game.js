@@ -157,19 +157,20 @@ document.addEventListener('keydown', function (event) {
         const wordObj = words[currentWordIndex]; // Get the current word the player is typing
         const typedLetter = event.key.toLowerCase(); // Convert to lowercase for comparison
 
-        currentWord += typedLetter;
+        if (typedLetter === wordObj.word[0].toLowerCase()) {
+            // Correct letter typed
+            currentWord += wordObj.word[0];
+            wordObj.word = wordObj.word.slice(1); // Remove the typed letter from the word
 
-        // If the full word is typed correctly, remove it
-        if (currentWord === wordObj.word.toLowerCase()) {
-            words.splice(currentWordIndex, 1); // Remove the word once it's fully typed
-            score += 10; // Increase score
-            updateScore();
+            // Check if the whole word is typed
+            if (wordObj.word.length === 0) {
+                words.splice(currentWordIndex, 1); // Remove the word once it's fully typed
+                score += 10; // Increase score
+                updateScore();
 
-            currentWord = ""; // Reset current typed word
-            currentWordIndex = -1; // Reset current word index
-        } else if (!wordObj.word.toLowerCase().startsWith(currentWord)) {
-            // If typed letters don't match the word, reset the typed word
-            currentWord = "";
+                currentWord = ""; // Reset current typed word
+                currentWordIndex = -1; // Reset current word index
+            }
         }
     }
 });
