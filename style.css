@@ -1,45 +1,63 @@
+@font-face {
+    font-family: 'ProtestGuerrilla';
+    src: url(./Protest_Guerrilla/ProtestGuerrilla-Regular.ttf);
+}
+@font-face {
+    font-family: 'Fascinate_Inline';
+    src: url(./Fascinate_Inline/FascinateInline-Regular.ttf);
+}
+@font-face {
+    font-family: 'Silkscreen';
+    src: url('./Silkscreen/Silkscreen-Bold.ttf');
+}
+@font-face {
+    font-family: 'PressStart2P';
+    src: url('./Press_Start_2P/PressStart2P-Regular.ttf');
+}
+
 body {
     text-align: center;
     background-color: #282c34;
     color: white;
-
 }
 h1 {
-    font-size: 48px;
     font-family: 'Montserrat', sans-serif;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 canvas {
-    border: 10px solid white;
-    background-color: white;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url('bg1.jpg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
     display: block;
     margin: 0 auto;
+    height: 100vh;
+    width: 100vw;
+    z-index: -1;
 }
 
 #scoreBoard {
     margin-top: 10px;
-}
-
-.key-row {
     display: flex;
+    width: 100%;
+    font-size: 25px;
+    align-items: center;
     justify-content: center;
-    margin-bottom: 5px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #282c34;
+    font-family: 'Fascinate_Inline';
 }
 
-.key {
-    background-color: #444;
-    color: white;
-    border: none;
-    padding: 10px;
-    margin: 2px;
-    cursor: pointer;
-    font-size: 18px;
-    border-radius: 4px;
+#scoreBoard p{
+    margin: 10px 20px;
 }
 
-.key:active {
-    background-color: #888;
-}
 
 
 #gameOver {
@@ -53,17 +71,21 @@ canvas {
     display: none;
     width: 600px;
     height: 600px;
-    padding: 30px;
+    padding: 20px 30px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(5px);
     -webkit-backdrop-filter: blur(5px);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 48px;
+    font-family: 'Public Pixel', sans-serif;
+    font-size: 25px;
     font-weight: bold;
     text-align: center;
     text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     animation: fade-in 0.5s;
     animation-fill-mode: forwards;
+}
+
+#gameOver img{
+    height: 200px;
 }
 
 #gameOver.visible {
@@ -73,12 +95,12 @@ canvas {
     color:red;
     font-size: 48px;
     font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-  text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  font-family: 'Montserrat', sans-serif;
-  animation: pulse 1s infinite;
-  animation-fill-mode: forwards;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    font-family: 'Montserrat', sans-serif;
+    animation: pulse 1s infinite;
+    animation-fill-mode: forwards;
 }
 #highestScore{
     color:gold;
@@ -86,29 +108,44 @@ canvas {
 }
 button {
    
-    background-color: #4CAF50; 
+    background-color: #335568; 
     color: #fff; 
-    padding: 10px 20px;
+    padding: 10px;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: background-color 0.2s;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 18px;
+    font-family: 'Public Pixel', sans-serif;
+    font-size: 16px;
+    margin-top: 20px;
     font-weight: bold;
     text-align: center;
 }
 
 
 button:hover {
-    background-color: #3e8e41; 
+    background-color: #213541; 
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
 }
 
-/* .bullet {
-    width: 5px;
-    height: 8px;
-    background-color: red;
+#levelDisplay {
     position: absolute;
-} */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 48px;
+    color: white;
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+    z-index: 10;
+    font-family: 'Fascinate_Inline';
+}
+
+#levelDisplay.fade-in {
+    opacity: 1;
+}
+
+#levelDisplay.fade-out {
+    opacity: 0;
+}

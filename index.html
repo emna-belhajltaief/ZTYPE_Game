@@ -3,55 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Z-Type </title>
+    <title>CPU-Type </title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.cdnfonts.com/css/public-pixel" rel="stylesheet">
 </head>
 <body>
-    <h1>Z-Type Game</h1>
     <canvas id="gameCanvas"></canvas>
     <div id="scoreBoard">
-        <p>Score: <span id="score">0</span></p>
-        <p>Level: <span id="level">1</span></p>
-        <p>Lives: <span id="lives">3</span></p>
+        <p><b>Score: </b><span id="score">0</span></p>
+        <p><b>Level: </b><span id="level">1</span></p>
+        <p><b>Lives: </b><span id="lives">3</span></p>
     </div>
 
-    <div id="keyboard">
-        <div class="key-row">
-            <button class="key">Q</button>
-            <button class="key">W</button>
-            <button class="key">E</button>
-            <button class="key">R</button>
-            <button class="key">T</button>
-            <button class="key">Y</button>
-            <button class="key">U</button>
-            <button class="key">I</button>
-            <button class="key">O</button>
-            <button class="key">P</button>
-        </div>
-        <div class="key-row">
-            <button class="key">A</button>
-            <button class="key">S</button>
-            <button class="key">D</button>
-            <button class="key">F</button>
-            <button class="key">G</button>
-            <button class="key">H</button>
-            <button class="key">J</button>
-            <button class="key">K</button>
-            <button class="key">L</button>
-        </div>
-        <div class="key-row">
-            <button class="key">Z</button>
-            <button class="key">X</button>
-            <button class="key">C</button>
-            <button class="key">V</button>
-            <button class="key">B</button>
-            <button class="key">N</button>
-            <button class="key">M</button>
-        </div>
-    </div>
+    <div id="levelDisplay"></div>
+
 
     <div id="gameOver" class="hidden">
-        <h2 class="text">Game Over!</h2>
+        <img src="gameOver.png" alt="gameOver">
         <p>Your score: <span id="finalScore">0</span></p>
         <p>Highest score: <span id="highestScore">0</span></p>
         <button onclick="restartGame()">Restart</button>

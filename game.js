@@ -7,14 +7,17 @@ let score = 0;
 let level = 1;
 let lives = 3;
 let gameRunning = true;
+let time = 0
+let spawnWordInterval = 3000
+let wordSpawnIntervalID;
 
 const missileImg = document.getElementById("missileImg");
 let missile = {
     x: canvas.width,
-    y: canvas.height + 410,
+    y: canvas.height + 390,
     width: 40,
     height: 60,
-    speed: 2,
+    speed: 6,
     direction: 1 
 };
 
@@ -24,9 +27,10 @@ let currentWordIndex = -1; // Index of the word the player is trying to type
 //game loop
 function startGame() {
     spawnWord();
-    setInterval(spawnWord, 3000); 
+    wordSpawnIntervalID = setInterval(spawnWord, spawnWordInterval); 
     setInterval(shootBullet, 1000); 
     gameLoop();
+    updateScore();
 }
 
 
@@ -40,13 +44,72 @@ function spawnWord() {
     });
 }
 
+function updateLevel() {
+    let previousLevel = level;
+
+    if (score >= 0 && score < 50) {
+        level = 1;
+        spawnWordInterval = 3000;
+    } else if (score >= 50 && score < 100) {
+        level = 2;
+        spawnWordInterval = 2000;
+    } else if (score >= 100 && score < 150) {
+        level = 3;
+        spawnWordInterval = 1000;
+    } else if (score >= 130) {
+        level = 4;
+        spawnWordInterval = 500;
+    }
+
+    // If the level changes, wait until all words are gone before proceeding
+    if (level !== previousLevel) {
+        clearInterval(wordSpawnIntervalID); 
+
+        // Wait until all words are removed from the screen
+        const waitForWordsToDisappear = setInterval(() => {
+            if (words.length === 0) {
+                clearInterval(waitForWordsToDisappear); 
+
+                showLevelTransition(level); 
+
+                setTimeout(() => {
+                    
+                    wordSpawnIntervalID = setInterval(spawnWord, spawnWordInterval);
+                }, 3000); 
+            }
+        }, 100); 
+    }
+
+    document.getElementById("level").textContent = level;
+}
+
+
+function showLevelTransition(level) {
+    const levelDisplay = document.getElementById("levelDisplay");
+
+
+    levelDisplay.textContent = `Level ${level}`;
+    levelDisplay.classList.add("fade-in");
+
+    setTimeout(() => {
+        levelDisplay.classList.remove("fade-in");
+        levelDisplay.classList.add("fade-out");
+
+        setTimeout(() => {
+            levelDisplay.classList.remove("fade-out");
+        }, 2000);
+    }, 2000);
+}
+
+
+
 
 function getRandomWord() {
-    const wordList = ["CPU", "dev", "ISIMM", "club", "web", "html", "css", "ZType", "missile",
-        "game", "formation", "javascript", "bullet", "shoot", "computer", "div", "canvas", "index", "balise", "class",
-        "id", "style", "font", "color", "background", "position", "top", "left", "right", "size",
-        "bottom", "width", "height", "margin", "padding", "border", "box",
-        "display", "flex", "grid", "row", "column", "align"
+    const wordList = ["CPU", "Development", "ISIMM", "Club", "Web", "Html", "Css", "ZType", "Algorithm", "Github", "API",
+        "Game", "Formation", "Javascript", "Computer", "React", "Angular", "PHP", "FrontEnd", "BackEnd", "CodeForces",
+        "CyberBot", "Fighter", "Autonome", "Junior", "ToutTerrain", "Design", "Media", "LeetCode", "Cloud", "AI", "ComputerVision",
+        "Display", "Flex", "Grid", "Row", "Column", "Align", "CompetitiveProgramming", "ProblemSolving", "Python", "Codeforces", "Linkedin", "Robot", 
+        "Arduino"
     ];
     return wordList[Math.floor(Math.random() * wordList.length)];
 }
@@ -78,7 +141,7 @@ function shootBullet() {
 function drawBullets() {
     ctx.fillStyle = "red";
     bullets.forEach(bullet => {
-        ctx.fillRect(bullet.x, bullet.y, 5, 8);
+        ctx.fillRect(bullet.x, bullet.y, 10, 8);
     });
 }
 
@@ -122,8 +185,8 @@ function removeRandomLetter(wordObj) {
 
 
 function drawWords() {
-    ctx.font = "24px Arial";
-    ctx.fillStyle = "black";
+    ctx.font = "18px PressStart2P";
+    ctx.fillStyle = "#fff";
     words.forEach(wordObj => {
         ctx.fillText(wordObj.word, wordObj.x, wordObj.y);
     });
@@ -178,6 +241,7 @@ document.addEventListener('keydown', function (event) {
 
 function updateScore() {
     document.getElementById("score").innerText = score;
+    updateLevel();
 }
 
 
@@ -199,6 +263,7 @@ function endGame() {
     document.getElementById("finalScore").innerText = score;
     document.getElementById("highestScore").innerText = highestScore;
     document.getElementById("gameOver").classList.add("visible");
+    document.getElementById("scoreBoard").style.display='none';
 }
 
 
@@ -211,7 +276,14 @@ function gameLoop() {
     updateBullets();
     drawWords();
     updateWords();
+    updateScore();
     requestAnimationFrame(gameLoop);
+    // time += 1
+    // if (time%500 == 0 && spawnWordInterval > 1000) {
+    //     spawnWordInterval -= 200
+    // }
+    // console.log(time)
+    // console.log(spawnWordInterval)
 }
 
 
@@ -221,15 +293,19 @@ function clearCanvas() {
 
 
 function restartGame() {
+    clearInterval(wordSpawnIntervalID);
     document.getElementById("gameOver").classList.remove("visible");
     words = [];
     bullets = [];
     score = 0;
     lives = 3;
+    level = 1;
+    spawnWordInterval = 3000
     gameRunning = true;
     updateScore();
     updateLives();
     startGame();
+    document.getElementById("scoreBoard").style.display='flex';
 }
 
 
